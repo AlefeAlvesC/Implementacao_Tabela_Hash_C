@@ -1,16 +1,14 @@
 //TAD de tabela hash
-#include <stdbool.h>
-#define TAMANHO_MAX_CHAVE 6
-#define TAMANHO_HASH 127
+#ifndef _HASH_H_
+#define _HASH_H_
 
-//Struct para o ParChaveValor que deve ser guardado na tabela hash
-typedef struct ParChaveValor{
-    char chave[TAMANHO_MAX_CHAVE];
-    int codigo;
-}Viagem;
+#include <stdbool.h>
+#include "lista_encad.h"
+
+#define TAMANHO_HASH 127 //127 pois no trabalho pede que seja um número primo, mas podemos deixar um número primo menor do que 120 tbm
 
 typedef struct tabela_hash{
-    Viagem tabela_hash[TAMANHO_HASH];
+    Lista *tabela_hash[TAMANHO_HASH];
 }TabelaHash;
 
 //Função HASH
@@ -38,3 +36,5 @@ void imprimir_tabela(TabelaHash* tabela);
 
 //Função para liberar a memória alocada a tabela hash
 void liberar_tabela(TabelaHash* tabela);
+
+#endif

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "lista_encad.h"
 
 Lista *lista_cria(){
@@ -9,7 +10,7 @@ Lista *lista_cria(){
     return l;
 }
 
-void lista_insere(Lista *l, int valor){
+void lista_insere(Lista *l, Viagem valor){
     No *novo =(No *) malloc(sizeof(No));
     novo->info = valor;
     novo->prox = l->header;
@@ -17,14 +18,15 @@ void lista_insere(Lista *l, int valor){
     l->tam++;
 }
 
-void lista_remove(Lista *l, int valor){
+void lista_remove(Lista *l, const char* chave){
     if(l->tam == 0)
         return;
 
     No *atual = l->header;
     No *ant = NULL;
 
-    while(atual->info != valor){
+    //while(strcmp(atual->info.chave, chave))
+    while(atual->info.chave != chave){
         ant = atual;
         atual = atual->prox;
     }
@@ -41,6 +43,25 @@ void lista_remove(Lista *l, int valor){
     free(atual);
     l->tam--;
 }
+
+int *lista_busca_no(No* header, const char* chave){
+    if(header){
+        if(strcmp(header->info.chave, chave) == 0){
+            return &header->info.codigo;
+        }
+
+        return lista_busca_no(header->prox, chave);
+    }
+    return NULL;
+}
+
+int *lista_busca(Lista *l, const char* chave){
+    if(l == NULL)
+        return NULL;
+        
+    return lista_busca_no(l->header, chave);
+}
+
 
 int lista_vazia(Lista *l){
     return l->tam == 0;
