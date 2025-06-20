@@ -25,8 +25,8 @@ void lista_remove(Lista *l, const char* chave){
     No *atual = l->header;
     No *ant = NULL;
 
-    //while(strcmp(atual->info.chave, chave))
-    while(atual->info.chave != chave){//Depois verificar se essa comparação está correta, acho que o ideal seria usar strcmp mesmo, mas depois vejo
+    while(atual && strcmp(atual->info.chave, chave) != 0){//Corrigindo a comparação entre strings
+    //while(atual->info.chave != chave){
         ant = atual;
         atual = atual->prox;
     }
