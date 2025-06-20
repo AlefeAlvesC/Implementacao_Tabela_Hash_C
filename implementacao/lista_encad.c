@@ -19,7 +19,7 @@ void lista_insere(Lista *l, Viagem valor){
 }
 
 void lista_remove(Lista *l, const char* chave){
-    if(l->tam == 0)
+    if(!l || l->tam == 0)
         return;
 
     No *atual = l->header;

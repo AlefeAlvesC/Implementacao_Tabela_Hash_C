@@ -63,8 +63,13 @@ int* buscar(TabelaHash* tabela, const char* chave){
         return valor;
 }
 
+//Assim como a função inserir, depois devemos ajeitar esta para retornar TRUE OU FALSE
 bool remover(TabelaHash* tabela, const char* chave){
+    if(!tabela)
+        return false;
 
+    int index = hash(chave);
+    lista_remove(tabela->tabela_hash[index], chave);
 }
 
 void imprimir_tabela(TabelaHash* tabela){

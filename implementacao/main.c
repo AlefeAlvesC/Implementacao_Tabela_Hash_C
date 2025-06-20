@@ -21,6 +21,9 @@ int main(){
     
     imprimir_tabela(tabela);
 
+    remover(tabela, "BELMAC");
+
+    imprimir_tabela(tabela);
 
     liberar_tabela(tabela);
     return 0;
