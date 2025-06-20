@@ -25,8 +25,8 @@ void lista_remove(Lista *l, const char* chave){
     No *atual = l->header;
     No *ant = NULL;
 
-    while(atual && strcmp(atual->info.chave, chave) != 0){//Corrigindo a comparação entre strings
-    //while(atual->info.chave != chave){
+    while(atual && strcmp(atual->info.chave, chave) != 0){//Comparação entre strings corrigida
+    //while(atual->info.chave != chave)
         ant = atual;
         atual = atual->prox;
     }
@@ -68,13 +68,16 @@ int lista_vazia(Lista *l){
 }
 
 void no_libera(No* header){
-    if(header->prox){
+    if(header){
         no_libera(header->prox);
         free(header);
     }
 }
 
 void lista_libera(Lista* l){
+    if(l == NULL)
+        return;
+
     no_libera(l->header);
     free(l);
 }

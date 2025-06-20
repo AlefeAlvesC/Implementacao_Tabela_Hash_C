@@ -23,9 +23,12 @@ int hash(const char chave[]){
 
 TabelaHash* criar_tabela_hash(){
     TabelaHash *tabela = (TabelaHash*) malloc(sizeof(TabelaHash));
+    
+    for(int i = 0; i < TAMANHO_HASH; i++){//Inicializa cada ponteiro com NULL, para evitar acesso a lixo de memória 
+        tabela->tabela_hash[i] = NULL;
+    }
+    
     return tabela;
-    //Lembrar de implementar uma inicialização da tabela, fazendo com que cada posição seja NULL
-    //pois pode ser que no linux isso gere erro, mas no windows está ok.
 }
 
 //Lembrar de arrumar a função inserir para retornar FALSE caso ocorra err na inserção
@@ -39,7 +42,6 @@ bool inserir(TabelaHash* tabela, const char* chave, int valor){
     }else{//Se não apenas reutiliza o lista já criada
         l = tabela->tabela_hash[index];
     }
-    
     
     Viagem *novo = (Viagem*) malloc(sizeof(Viagem));//Cria um novo elemento viagem auxiliar que deve ser inserido na lista
     strcpy(novo->chave, chave);
@@ -70,5 +72,12 @@ void imprimir_tabela(TabelaHash* tabela){
 }
 
 void liberar_tabela(TabelaHash* tabela){
+    if(tabela == NULL)
+        return;
 
+    for(int i = 0; i < TAMANHO_HASH; i++){
+        lista_libera(tabela->tabela_hash[i]);
+    }
+
+    free(tabela);
 }

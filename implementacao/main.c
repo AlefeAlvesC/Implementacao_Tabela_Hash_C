@@ -25,7 +25,8 @@ int main(){
         fscanf(fp, "%d", &cod);//Aqui realizo a leitura do codigo, apenas para passar para proxima linha, pois não utilizo este aqui
         printf("O codigo da chave %s eh %d e seu indice na tabela hash é: %d\n", chave, *buscar(tabela, chave), hash(chave));    
     }
-    
+
+    liberar_tabela(tabela);
     fclose(fp);
     return 0;
 }
