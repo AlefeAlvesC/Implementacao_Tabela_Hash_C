@@ -25,8 +25,10 @@ TabelaHash* criar_tabela_hash(){
     TabelaHash *tabela = (TabelaHash*) malloc(sizeof(TabelaHash));
     return tabela;
     //Lembrar de implementar uma inicialização da tabela, fazendo com que cada posição seja NULL
+    //pois pode ser que no linux isso gere erro, mas no windows está ok.
 }
 
+//Lembrar de arrumar a função inserir para retornar FALSE caso ocorra err na inserção
 bool inserir(TabelaHash* tabela, const char* chave, int valor){
     int index = hash(chave);//Salva o index da tabela em que o novo item será inserido
     Lista* l;
@@ -39,18 +41,20 @@ bool inserir(TabelaHash* tabela, const char* chave, int valor){
     }
     
     
-    Viagem *novo = (Viagem*) malloc(sizeof(Viagem));//Cria um novo elemento viagem que deve ser inserido na lista
+    Viagem *novo = (Viagem*) malloc(sizeof(Viagem));//Cria um novo elemento viagem auxiliar que deve ser inserido na lista
     strcpy(novo->chave, chave);
     novo->codigo = valor;
     
-    lista_insere(l, *novo);
+    lista_insere(l, *novo);//Insere na lista uma cópia do que o ponteiro novo aponta, não o ponteiro em si
     
-    free(novo);
+    free(novo);//Damos free no ponteiro auxiliar de viagem
 }
 
 int* buscar(TabelaHash* tabela, const char* chave){
-    int *valor = lista_busca(tabela->tabela_hash[hash(chave)], chave);
+    int index = hash(chave);//Salvamos o index da posição da hash que buscuremos o informação
+    int *valor = lista_busca(tabela->tabela_hash[index], chave);//Realizamos a busca na lista 
 
+    //Verificamos se o valor retornado da busca é valido
     if(valor == NULL)
         return NULL;
     else

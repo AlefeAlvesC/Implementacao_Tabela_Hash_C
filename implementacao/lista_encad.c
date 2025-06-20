@@ -26,7 +26,7 @@ void lista_remove(Lista *l, const char* chave){
     No *ant = NULL;
 
     //while(strcmp(atual->info.chave, chave))
-    while(atual->info.chave != chave){
+    while(atual->info.chave != chave){//Depois verificar se essa comparação está correta, acho que o ideal seria usar strcmp mesmo, mas depois vejo
         ant = atual;
         atual = atual->prox;
     }
@@ -44,29 +44,28 @@ void lista_remove(Lista *l, const char* chave){
     l->tam--;
 }
 
+//Função para busca recursiva somente com os nós
 int *lista_busca_no(No* header, const char* chave){
-    if(header){
-        if(strcmp(header->info.chave, chave) == 0){
-            return &header->info.codigo;
+    if(header){//Verifica se o nó não esta vazio
+        if(strcmp(header->info.chave, chave) == 0){//Verifica se encontrou a chave correspondente
+            return &header->info.codigo;//Retorna o ponteiro para o codigo dessa viagem
         }
 
-        return lista_busca_no(header->prox, chave);
+        return lista_busca_no(header->prox, chave);//Se a chave não for a correspondente verifica o proximo nó
     }
-    return NULL;
+    return NULL;//Retonar null caso o nó seja null, o que significa que não encontramos a chave na lista
 }
 
 int *lista_busca(Lista *l, const char* chave){
-    if(l == NULL)
+    if(l == NULL)//Verifica se a lista passada está vazia
         return NULL;
-        
-    return lista_busca_no(l->header, chave);
-}
 
+    return lista_busca_no(l->header, chave);//Chama busca recursiva
+}
 
 int lista_vazia(Lista *l){
     return l->tam == 0;
 }
-
 
 void no_libera(No* header){
     if(header->prox){
