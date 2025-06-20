@@ -1,25 +1,31 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include "lista_encad.h"
 #include "hash.h"
 
 int main(){
     
     TabelaHash *tabela = criar_tabela_hash();
-    inserir(tabela, "BELMAN", 161714);
-    inserir(tabela, "BELPAL", 141312);
-    inserir(tabela, "MANBEL", 345382);
-    inserir(tabela, "MANBOA", 246790);
-    inserir(tabela, "MANMAC", 162984);
+    FILE *fp;//Ponteiro para o arquivo
+    fp = fopen("viagens.txt", "r");
+    char chave[7];//Variavel de leitura para as chaves
+    int cod;//Variavel de leitura para o codigo das chaves
 
-    
-    char *test[5];
-    test[0] = "BELMAN";
-    test[1] = "BELPAL";
-    test[2] = "MANBEL";
-    test[3] = "MANBOA";
-    test[4] = "MANMAC";
-
-    for(int i = 0; i < 5; i++){
-        printf("O codigo da chave %s eh %d e seu indice na tabela hash é: %d\n", test[i], *buscar(tabela, test[i]), hash(test[i]));    
+    for(int i = 0; i < 42; i++){//Forma de percorrer o arquivo, nesse caso, percorro as 42 linhas dele
+        fscanf(fp, "%s", chave);//Realizo a leitura da chave
+        fscanf(fp, "%d", &cod);//Realizo a leitura do codigo
+        inserir(tabela, chave, cod);//Insiro na tabela hash
     }
+    fclose(fp);//Fecho o arquivo
+
+    fp = fopen("viagens.txt", "r");//Reabro novamente o arquivo, para voltar ao começo
+
+    for(int i = 0; i < 42; i++){//Novamente vou percorrer o arquivo
+        fscanf(fp, "%s", chave);//Realizo a leitura da chave
+        fscanf(fp, "%d", &cod);//Aqui realizo a leitura do codigo, apenas para passar para proxima linha, pois não utilizo este aqui
+        printf("O codigo da chave %s eh %d e seu indice na tabela hash é: %d\n", chave, *buscar(tabela, chave), hash(chave));    
+    }
+    
+    fclose(fp);
     return 0;
 }
