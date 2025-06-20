@@ -18,15 +18,10 @@ int main(){
     }
     fclose(fp);//Fecho o arquivo
 
-    fp = fopen("viagens.txt", "r");//Reabro novamente o arquivo, para voltar ao começo
+    
+    imprimir_tabela(tabela);
 
-    for(int i = 0; i < 42; i++){//Novamente vou percorrer o arquivo
-        fscanf(fp, "%s", chave);//Realizo a leitura da chave
-        fscanf(fp, "%d", &cod);//Aqui realizo a leitura do codigo, apenas para passar para proxima linha, pois não utilizo este aqui
-        printf("O codigo da chave %s eh %d e seu indice na tabela hash é: %d\n", chave, *buscar(tabela, chave), hash(chave));    
-    }
 
     liberar_tabela(tabela);
-    fclose(fp);
     return 0;
 }

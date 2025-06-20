@@ -68,7 +68,16 @@ bool remover(TabelaHash* tabela, const char* chave){
 }
 
 void imprimir_tabela(TabelaHash* tabela){
-
+    if(!tabela)
+        return;
+    printf("--- Imprimindo TABELA HASH ---\n");
+    for(int i = 0; i < TAMANHO_HASH; i++){
+        if(tabela->tabela_hash[i] != NULL){
+            printf("\nImprimindo itens na posicao %d da tabela:\n", i);
+            lista_imprime(tabela->tabela_hash[i]);
+        }
+        
+    }
 }
 
 void liberar_tabela(TabelaHash* tabela){

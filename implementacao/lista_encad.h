@@ -39,6 +39,10 @@ void lista_remove(Lista* l, const char* chave);
 //Essa função recebe o ponteiro da lista e chave que deve ser buscada, retornando assim o valor correspondente da chave
 int *lista_busca(Lista* l, const char* chave);
 
+//Função para imprimir todos os elementos presentes em uma lista
+//Essa função recebe um ponteiro para uma lista e imprime todos os elementos dessa lista
+void lista_imprime(Lista* l);
+
 //Função para verificar se a lista esta vazia
 //Essa função retorna 1 para lista vazia e 0 para lista não vazia
 int lista_vazia(Lista* l);

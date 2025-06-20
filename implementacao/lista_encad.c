@@ -63,6 +63,18 @@ int *lista_busca(Lista *l, const char* chave){
     return lista_busca_no(l->header, chave);//Chama busca recursiva
 }
 
+void lista_imprime(Lista* l){
+    if(!l)
+        return;
+    
+    No* atual = l->header;
+    while(atual != NULL){
+        printf("A chave %s tem o codigo %d\n", atual->info.chave, atual->info.codigo);
+        atual = atual->prox;
+    }
+
+}
+
 int lista_vazia(Lista *l){
     return l->tam == 0;
 }
