@@ -10,17 +10,23 @@ Lista *lista_cria(){
     return l;
 }
 
-void lista_insere(Lista *l, Viagem valor){
+int lista_insere(Lista *l, Viagem valor){
+    if(!l) return 0;
+
     No *novo =(No *) malloc(sizeof(No));
+    if(novo == NULL)
+        return 0;
+
     novo->info = valor;
     novo->prox = l->header;
     l->header = novo;
     l->tam++;
+    return 1;
 }
 
-void lista_remove(Lista *l, const char* chave){
+int lista_remove(Lista *l, const char* chave){
     if(!l || l->tam == 0)
-        return;
+        return 0;
 
     No *atual = l->header;
     No *ant = NULL;
@@ -32,7 +38,7 @@ void lista_remove(Lista *l, const char* chave){
     }
 
     if(atual == NULL)
-        return;
+        return 0;
 
     if(ant == NULL){
         l->header = atual->prox;
@@ -42,6 +48,7 @@ void lista_remove(Lista *l, const char* chave){
 
     free(atual);
     l->tam--;
+    return 1;
 }
 
 //Função para busca recursiva somente com os nós

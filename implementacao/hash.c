@@ -31,8 +31,10 @@ TabelaHash* criar_tabela_hash(){
     return tabela;
 }
 
-//Lembrar de arrumar a função inserir para retornar FALSE caso ocorra err na inserção
 bool inserir(TabelaHash* tabela, const char* chave, int valor){
+    if(!tabela)
+        return false;
+
     int index = hash(chave);//Salva o index da tabela em que o novo item será inserido
     Lista* l;
     
@@ -47,9 +49,13 @@ bool inserir(TabelaHash* tabela, const char* chave, int valor){
     strcpy(novo->chave, chave);
     novo->codigo = valor;
     
-    lista_insere(l, *novo);//Insere na lista uma cópia do que o ponteiro novo aponta, não o ponteiro em si
-    
-    free(novo);//Damos free no ponteiro auxiliar de viagem
+    if(lista_insere(l, *novo)){//Insere na lista uma cópia do que o ponteiro novo aponta, não o ponteiro em si
+        free(novo);//Damos free no ponteiro auxiliar de viagem
+        return true;
+    }else{ 
+        free(novo);//Damos free no ponteiro auxiliar de viagem
+        return false;
+    }
 }
 
 int* buscar(TabelaHash* tabela, const char* chave){
@@ -63,13 +69,15 @@ int* buscar(TabelaHash* tabela, const char* chave){
         return valor;
 }
 
-//Assim como a função inserir, depois devemos ajeitar esta para retornar TRUE OU FALSE
 bool remover(TabelaHash* tabela, const char* chave){
     if(!tabela)
         return false;
 
     int index = hash(chave);
-    lista_remove(tabela->tabela_hash[index], chave);
+    if(lista_remove(tabela->tabela_hash[index], chave))
+        return true;
+    else
+        return false;
 }
 
 void imprimir_tabela(TabelaHash* tabela){
@@ -81,7 +89,6 @@ void imprimir_tabela(TabelaHash* tabela){
             printf("\nImprimindo itens na posicao %d da tabela:\n", i);
             lista_imprime(tabela->tabela_hash[i]);
         }
-        
     }
 }
 

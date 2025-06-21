@@ -29,11 +29,11 @@ Lista *lista_cria();
 
 //Função para inserir um novo elemento em uma lista
 //Essa função recebe como parametro o ponteiro da lista e o valor que se deseja inserir nessa lista
-void lista_insere(Lista *l, Viagem valor);
+int lista_insere(Lista *l, Viagem valor);
 
 //Função para remover um elemento na lista
 //Essa função recebe como parametro o ponteiro para um lista e o elemento que deve ser removido da lista
-void lista_remove(Lista* l, const char* chave);
+int lista_remove(Lista* l, const char* chave);
 
 //Função para buscar um elemento na lista
 //Essa função recebe o ponteiro da lista e chave que deve ser buscada, retornando assim o valor correspondente da chave
