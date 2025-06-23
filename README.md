@@ -28,12 +28,14 @@ Toda a gestão de memória foi feita manualmente (uso de `malloc` e `free`), sem
 
 ```
 .
-├── hash.c
-├── hash.h
-├── lista_encad.c
-├── lista_encad.h
-├── main.c
-└── viagens.txt
+├── implementacao
+    ├── hash.c
+    ├── hash.h
+    ├── lista_encad.c
+    ├── lista_encad.h
+    ├── main.c
+    └── gerador_viagens.c
+└── README.md
 ```
 
 ### Como Compilar o Projeto (usando GCC)
@@ -41,10 +43,8 @@ Toda a gestão de memória foi feita manualmente (uso de `malloc` e `free`), sem
 Abra o terminal na pasta onde estão os arquivos do projeto e execute o seguinte comando:
 
 ```bash
-gcc -o hash main.c hash.c lista_encad.c -lm
+gcc main.c hash.c lista_encad.c -o hash
 ```
-
-**Observação**: O parâmetro `-lm` é necessário por causa do uso da biblioteca de funções matemáticas (`math.h`).
 
 ### Como Executar o Programa
 
@@ -124,9 +124,6 @@ A função hash utilizada neste projeto foi implementada com base no **Método d
 ## Desafios Encontrados Durante o Desenvolvimento
 
 Durante o processo de implementação, enfrentamos alguns desafios interessantes:
-
-- **Conversão eficiente de strings para inteiros**:  
-  Foi necessário criar uma forma de converter strings curtas (com até 6 caracteres) em um valor numérico significativo para usar na fórmula de hashing. Escolhemos um sistema de base 26, inspirado em representações de strings como em dicionários.
 
 - **Colisões intencionais para testes**:  
   Construímos um conjunto de dados de example (no `viagens.txt`) que contém várias chaves com padrões semelhantes, forçando algumas colisões na tabela, para validar o funcionamento correto do encadeamento separado.
