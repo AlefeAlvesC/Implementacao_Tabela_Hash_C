@@ -57,19 +57,42 @@ Após a compilação bem-sucedida, execute o programa com:
 No Windows, execute:
 
 ```bash
-hash.exe
+./hash.exe
 ```
-
 ### Teste com Arquivo de Entrada (Opção 3 do Programa)
 
-O arquivo `viagens.txt` já acompanha o projeto e contém dados de exemplo com várias chaves e valores.
+Antes de utilizar a opção 3 do programa para popular a tabela hash automaticamente, o usuário deve primeiro executar o código `gerador_viagens.c`, que é responsável por gerar o arquivo `viagens.txt` contendo as chaves e valores de exemplo.
 
-Ao escolher a opção 3 no menu, digite:
+Para compilar o gerador, execute:
 
-- **Nome do arquivo**: `viagens.txt`
-- **Número de linhas**: `42`
+```bash
+gcc gerador_viagens.c -o gerador
+```
 
-Assim, o programa irá inserir todos os 42 pares chave-valor da lista de viagens.
+E para rodá-lo:
+
+```bash
+./gerador
+```
+
+No Windows, execute:
+
+```bash
+./gerador.exe
+```
+
+Isso criará o arquivo `viagens.txt` na pasta do projeto.
+
+Depois disso, ao rodar o programa principal e escolher a opção 3 do menu, siga as instruções:
+
+```yaml
+Nome do arquivo: viagens.txt
+Número de linhas: 42 
+```
+O programa irá ler os 42 pares de chave-valor do arquivo ou a quantidade que você deseja e inseri-los na tabela hash.
+
+💡 Observação:
+O usuário pode editar o conteúdo do arquivo `viagens.txt` manualmente ou criar um arquivo com suas próprias viagens, desde que siga o formato esperado (uma chave e um valor por linha).
 
 ## Explicação da Função Hash (Método da Multiplicação)
 
