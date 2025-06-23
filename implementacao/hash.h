@@ -27,6 +27,10 @@ bool inserir(TabelaHash* tabela, const char* chave, int valor);
 //Essa função recebe o ponteiro para a tabela hash e a chave para consulta, retornando então o valor correspondente a pesquisa
 int* buscar(TabelaHash* tabela, const char* chave);
 
+// Funcao para buscar todas as ocorrencia de uma chave na tabela hash e imprimir seus valores.
+// Devolve o numero de ocorrencias achadas na hash
+int buscar_todas(TabelaHash* tabela, const char* chave);
+
 //Função para remover um item da tabela hash
 //Essa função recebe o ponteiro para tabela hash, a chave e valor do item a ser inserido e retorna TRUE ou FALSE para o resultado da remoção
 bool remover(TabelaHash* tabela, const char* chave);

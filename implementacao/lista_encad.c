@@ -70,6 +70,23 @@ int *lista_busca(Lista *l, const char* chave){
     return lista_busca_no(l->header, chave);//Chama busca recursiva
 }
 
+int lista_busca_todas(Lista* l, const char* chave) { 
+    if (!l) return 0;
+
+    No* atual = l->header;
+    int encontrados = 0;
+
+    while (atual) { //Percorre a lista encadeada buscando todas as ocorrencias de uma chave
+        if (strcmp(atual->info.chave, chave) == 0) { // Para cada ocorrencia encontrada, é feito o print da chave e o codigo
+            printf("Chave: %s | Código: %d\n", atual->info.chave, atual->info.codigo);
+            encontrados++;
+        }
+        atual = atual->prox;
+    }
+
+    return encontrados; // Retorna quantos foram encontrados
+}
+
 void lista_imprime(Lista* l){
     if(!l)
         return;

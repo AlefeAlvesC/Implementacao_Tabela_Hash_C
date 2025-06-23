@@ -38,6 +38,9 @@ int lista_remove(Lista* l, const char* chave);
 //Função para buscar um elemento na lista
 //Essa função recebe o ponteiro da lista e chave que deve ser buscada, retornando assim o valor correspondente da chave
 int *lista_busca(Lista* l, const char* chave);
+// Busca todas as ocorrencia de uma chave na lista e imprimi seus valores
+// Retorna o numero de ocorrencias encontradas
+int lista_busca_todas(Lista* l, const char* chave);
 
 //Função para imprimir todos os elementos presentes em uma lista
 //Essa função recebe um ponteiro para uma lista e imprime todos os elementos dessa lista

@@ -13,7 +13,7 @@ void menu(){
     printf("5. Apagar todos elementos da tabela hash.\n");
     printf("6. Imprimir um elemento da tabela hash.\n");
     printf("7. Imprimir todos elementos da tabela hash.\n");
-    printf("8. Busca um elemento da tabela hash.\n");
+    printf("8. Buscar ocorrencias de um elemento da tabela hash.\n");
     printf("0. Sair.\n");
     printf("Escolha uma das opções.\n");
 }
@@ -201,11 +201,10 @@ int main(){
                 break;
             }
             
-            int *valor = buscar(tabela, chave);
-            if(valor)
-                printf("A chave %s tem codigo %d.\n", chave, *valor);
-            else
-                printf("Não foi possivel imprimir o elemento com a chave informada, tente novamente.\n");
+            int impressos = buscar_todas(tabela, chave);
+            if (impressos = 0) {
+                printf("Não foi possivel imprimir o elemento com a chave %s, nenhuma ocorrencia encontrada.\n", chave);
+            }
             
             limpar_buffer();    
             break;
@@ -238,11 +237,12 @@ int main(){
                 break;
             }
             
-            int *busca_val = buscar(tabela, chave);
-            if(busca_val)
-                printf("A chave %s tem codigo %d.\n", chave, *busca_val);
-            else
-                printf("Não foi possivel buscar o elemento com a chave informada, tente novamente.\n");
+            int total = buscar_todas(tabela, chave);
+            if (total == 0) {
+                printf("Nenhuma ocorrência encontrada para a chave '%s'.\n", chave);
+            }else{
+                printf("Total de ocorrências encontradas: %d\n", total);
+            }
             
             limpar_buffer();
             break;

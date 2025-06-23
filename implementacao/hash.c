@@ -69,6 +69,14 @@ int* buscar(TabelaHash* tabela, const char* chave){
         return valor;
 }
 
+int buscar_todas(TabelaHash* tabela, const char* chave) {
+    if (!tabela) return 0;
+
+    int index = hash(chave); //Calculamos o indice da chave na tabela hash
+    return lista_busca_todas(tabela->tabela_hash[index], chave); // Chamamos a lista_busca_todas para buscar e imprimir todas as ocorrencias da chave
+    // o valor retorno é as ocorrencias encontradas
+}
+
 bool remover(TabelaHash* tabela, const char* chave){
     if(!tabela)
         return false;
