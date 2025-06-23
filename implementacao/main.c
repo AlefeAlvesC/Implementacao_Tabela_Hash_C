@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "lista_encad.h"
 #include "hash.h"
 
@@ -53,10 +54,32 @@ int main(){
             break;
 
         case 2:
+            if (tabela == NULL) {
+                printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
+                limpar_buffer();
+                break;
+            }
             printf("Digite uma chave de até 6 caracteres para a viagem:\n");
-            scanf("%s", chave);
+            
+            if (scanf("%s", chave) != 1) {
+                printf("Erro na leitura da chave.\n");
+                limpar_buffer();
+                break;
+            }
+
+            // Validar tamanho da chave
+            if (strlen(chave) > 6) {
+                printf("Chave muito grande! Máximo permitido: 6 caracteres.\n");
+                limpar_buffer();
+                break;
+            }
+
             printf("Digite o código da viagem:\n");
-            scanf("%d", &cod);    
+            if (scanf("%d", &cod) != 1) {
+                printf("Entrada inválida para o código.\n");
+                limpar_buffer();
+                break;
+            }   
 
             if(inserir(tabela, chave, cod))
                 printf("Inserção feita com sucesso.\n");
@@ -67,30 +90,76 @@ int main(){
 
             break;
         case 3:
+            if (tabela == NULL) {
+                printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
+                limpar_buffer();
+                break;
+            }
             printf("Digite o nome do arquivo que contem os elementos:\n");
-            scanf("%s", nome_arquivo);
+            if (scanf("%s", nome_arquivo) != 1) {
+                printf("Erro ao ler o nome do arquivo.\n");
+                limpar_buffer();
+                break;
+            }
+
             printf("Digite a quantidades de linhas desse arquivo.\n");
-            scanf("%d", &linhas);
+            if (scanf("%d", &linhas) != 1 || linhas <= 0) {
+                printf("Número de linhas inválido.\n");
+                limpar_buffer();
+                break;
+            }
+
             fp = fopen(nome_arquivo, "r");
             if(!fp){
-                printf("Erro ao fazer leitura do arquivo, tente novamente.\n");
+                printf("Erro ao abrir o arquivo '%s'. Verifique se o nome está correto e se o arquivo existe.\n", nome_arquivo);
                 limpar_buffer();
                 break;
             }
             
+            int sucesso = 1;
             for(int i = 0; i < linhas; i++){//Forma de percorrer o arquivo, nesse caso, percorro as 42 linhas dele
-                fscanf(fp, "%s", chave);//Realizo a leitura da chave
-                fscanf(fp, "%d", &cod);//Realizo a leitura do codigo
-                inserir(tabela, chave, cod);//Insiro na tabela hash
+                if (fscanf(fp, "%s %d", chave, &cod) != 2) { //Realizo a leitura da chave e do codigo
+                    printf("Erro na leitura da linha %d do arquivo. Verificar se o formato esta certo. \n", i + 1);
+                    sucesso = 0;
+                    break;
+                }
+                
+
+                if(!inserir(tabela, chave, cod)){ //Insiro na tabela hash
+                    printf("Erro ao inserir chave '%s' com codigo %d.\n", chave, cod);
+                    sucesso = 0;
+                    break;
+                }
             }
             fclose(fp);//Fecho o arquivo
             
-            printf("A inserção pelo arquivo feita com sucesso.\n");
+            if (sucesso) {
+                printf("A inserção pelo arquivo feita com sucesso.\n");
+            } else {
+                printf("A inserção pelo arquivo interrompida em decorrencia de erro.\n");
+            }
+
             limpar_buffer();
             break;
         case 4:
+            if (tabela == NULL) {
+                printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
+                limpar_buffer();
+                break;
+            }
             printf("Digite uma chave do elemento que deseja remover:\n");
-            scanf("%s", chave);
+            if (scanf("%s", chave) != 1) {
+                printf("Erro na leitura da chave.\n");
+                limpar_buffer();
+                break;
+            }
+
+            // Validar tamanho da chave
+            if (strlen(chave) > 6) {
+                printf("Chave muito grande! Máximo permitido: 6 caracteres.\n");
+                limpar_buffer();
+                break;
+            }
         
             if(remover(tabela, chave))
                 printf("Remoção feita com sucesso.\n");
@@ -100,6 +169,11 @@ int main(){
             break;
         
         case 5:
+            if (tabela == NULL) {
+                printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
+                limpar_buffer();
+                break;
+            }
             liberar_tabela(tabela);
             tabela = criar_tabela_hash();
 
@@ -108,8 +182,24 @@ int main(){
             break;
 
         case 6:
+            if (tabela == NULL) {
+                printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
+                limpar_buffer();
+                break;
+            }
             printf("Digite uma chave de até 6 caracteres para a viagem que deseja imprimir:\n");
-            scanf("%s", chave);
+            if (scanf("%s", chave) != 1) {
+                printf("Erro na leitura da chave.\n");
+                limpar_buffer();
+                break;
+            }
+
+            // Validar tamanho da chave
+            if (strlen(chave) > 6) {
+                printf("Chave muito grande! Máximo permitido: 6 caracteres.\n");
+                limpar_buffer();
+                break;
+            }
             
             int *valor = buscar(tabela, chave);
             if(valor)
@@ -120,12 +210,33 @@ int main(){
             limpar_buffer();    
             break;
         case 7:
+            if (tabela == NULL) {
+                printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
+                limpar_buffer();
+                break;
+            }
             imprimir_tabela(tabela);
             limpar_buffer();
             break;
         case 8:
+            if (tabela == NULL) {
+                printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
+                limpar_buffer();
+                break;
+            }
             printf("Digite uma chave de até 6 caracteres para a viagem que deseja buscar:\n");
-            scanf("%s", chave);
+            if (scanf("%s", chave) != 1) {
+                printf("Erro na leitura da chave.\n");
+                limpar_buffer();
+                break;
+            }
+
+            // Validar tamanho da chave
+            if (strlen(chave) > 6) {
+                printf("Chave muito grande! Máximo permitido: 6 caracteres.\n");
+                limpar_buffer();
+                break;
+            }
             
             int *busca_val = buscar(tabela, chave);
             if(busca_val)
