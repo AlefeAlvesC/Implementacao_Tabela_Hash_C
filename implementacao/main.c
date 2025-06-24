@@ -68,9 +68,17 @@ int main(){
                 break;
             }
 
+            normalizar_chave(chave);
+
             // Validar tamanho da chave
             if (strlen(chave) > 6) {
                 printf("Chave muito grande! Máximo permitido: 6 caracteres.\n");
+                limpar_buffer();
+                break;
+            }
+
+            if (!chave_valida(chave)) {
+                printf("Chave invalida! Use apenas letras (sem números ou símbolos).\n");
                 limpar_buffer();
                 break;
             }
@@ -125,6 +133,14 @@ int main(){
                     break;
                 }
                 
+                normalizar_chave(chave);
+
+                if (!chave_valida(chave)) {
+                    printf("Chave invalida! Use apenas letras (sem números ou símbolos).\n");
+                    sucesso_inserir = 0;
+                    limpar_buffer();
+                    break;
+                }
 
                 if(!inserir(tabela, chave, cod)){ //Insiro na tabela hash
                     printf("Erro ao inserir chave '%s' com codigo %d.\n", chave, cod);
@@ -151,6 +167,14 @@ int main(){
             printf("Digite uma chave do elemento que deseja remover:\n");
             if (scanf("%s", chave) != 1) {
                 printf("Erro na leitura da chave.\n");
+                limpar_buffer();
+                break;
+            }
+
+            normalizar_chave(chave);
+
+            if (!chave_valida(chave)) { //validar a chave inserida
+                printf("Chave invalida! Use apenas letras (sem números ou símbolos).\n");
                 limpar_buffer();
                 break;
             }
@@ -195,6 +219,14 @@ int main(){
                 break;
             }
 
+            normalizar_chave(chave);
+
+            if (!chave_valida(chave)) { //validar a chave inserida
+                printf("Chave invalida! Use apenas letras (sem números ou símbolos).\n");
+                limpar_buffer();
+                break;
+            }
+
             // Validar tamanho da chave
             if (strlen(chave) > 6) {
                 printf("Chave muito grande! Máximo permitido: 6 caracteres.\n");
@@ -227,6 +259,14 @@ int main(){
             printf("Digite uma chave de até 6 caracteres para a viagem que deseja buscar:\n");
             if (scanf("%s", chave) != 1) {
                 printf("Erro na leitura da chave.\n");
+                limpar_buffer();
+                break;
+            }
+
+            normalizar_chave(chave);
+
+            if (!chave_valida(chave)) { //validar a chave inserida
+                printf("Chave invalida! Use apenas letras (sem números ou símbolos).\n");
                 limpar_buffer();
                 break;
             }
@@ -281,7 +321,15 @@ int main(){
                     sucesso_remover = 0;
                     break;
                 }
-                
+
+                normalizar_chave(chave);
+
+                if (!chave_valida(chave)) { //validar a chave inserida
+                    printf("Chave invalida! Use apenas letras (sem números ou símbolos).\n");
+                    sucesso_remover = 0;
+                    limpar_buffer();
+                    break;
+                }
 
                 if(!remover_por_chave_valor(tabela, chave, cod)){ 
                     printf("Erro ao inserir chave '%s' com codigo %d.\n", chave, cod);

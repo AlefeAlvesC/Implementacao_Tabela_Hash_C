@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <ctype.h>
 #include "hash.h"
 #include "lista_encad.h"
 #define A 0.6180339887
@@ -11,7 +12,7 @@ int hash(const char chave[]){
     int k = 0; 
     for(int i = 0; chave[i] != '\0'; i++){
         //Levando em conta que a chave só contem letras maiusculas, diminui menos 65, pois é a posição de A na tabela ASCII e 26 elevado 5 menos i para a posição da letra na chave
-        k += (chave[i]-65) * pow(26, 5 - i);
+        k += (chave[i]-65) * pow(26, 5 - i); //IMPORTANTE: essa funcao assume que a chave apenas tem letras maiusculas (A-Z)
     }
     
     //Pegando o mod de 1 de k*A. Como % não funciona direito com tipos double, fiz dessa forma para pegar o modulo
@@ -121,4 +122,19 @@ void liberar_tabela(TabelaHash* tabela){
     }
 
     free(tabela);
+}
+
+bool chave_valida(const char *chave) { //Verifica se a chave apenas tem letras (A-Z)
+    for (int i = 0; chave[i] != '\0'; i++) {
+        if (!isalpha(chave[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void normalizar_chave(char *chave) { //converte a chave para letras maiusculas
+    for (int i = 0; chave[i] != '\0'; i++) {
+        chave[i] = toupper((unsigned char)chave[i]);
+    }
 }

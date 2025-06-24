@@ -44,4 +44,10 @@ void imprimir_tabela(TabelaHash* tabela);
 //Função para liberar a memória alocada a tabela hash
 void liberar_tabela(TabelaHash* tabela);
 
+//Verifica se a chave contem apenaas letras no alfabeto
+bool chave_valida(const char *chave);
+
+//faz a conversao da chave para maiúsculas (A-Z)
+void normalizar_chave(char *chave);
+
 #endif
