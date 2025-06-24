@@ -43,6 +43,12 @@ Toda a gestão de memória foi feita manualmente (uso de `malloc` e `free`), sem
 Abra o terminal na pasta onde estão os arquivos do projeto e execute o seguinte comando:
 
 ```bash
+gcc main.c hash.c lista_encad.c -o hash -lm
+```
+
+
+No windows, execute:
+```bash
 gcc main.c hash.c lista_encad.c -o hash
 ```
 

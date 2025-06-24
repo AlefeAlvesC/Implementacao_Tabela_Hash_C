@@ -11,44 +11,44 @@ Lista *lista_cria(){
 }
 
 int lista_insere(Lista *l, Viagem valor){
-    if(!l) return 0;
+    if(!l) return 0;//Retorna 0, caso o ponteiro para lista seja invalido ou null
 
-    No *novo =(No *) malloc(sizeof(No));
-    if(novo == NULL)
+    No *novo =(No *) malloc(sizeof(No));//Cria um novo nó para a lista
+    if(novo == NULL)//Verifica se a alocação foi bem suucedida
         return 0;
 
+    //Inicializa os valores do novo nó e o insere na lista
     novo->info = valor;
     novo->prox = l->header;
     l->header = novo;
     l->tam++;
-    return 1;
+    return 1;//Retorna 1 para a inserção bem sucedida
 }
 
 int lista_remove(Lista *l, const char* chave){
-    if(!l || l->tam == 0)
+    if(!l || l->tam == 0)//Verifica se o ponteiro para lista é valido ou se a lista não está vazia
         return 0;
 
     No *atual = l->header;
     No *ant = NULL;
 
-    while(atual && strcmp(atual->info.chave, chave) != 0){//Comparação entre strings corrigida
-    //while(atual->info.chave != chave)
+    while(atual && strcmp(atual->info.chave, chave) != 0){//Percorre os ponteiros da lista enquanto não for null ou não encontrar o valor correspodente
         ant = atual;
         atual = atual->prox;
     }
 
-    if(atual == NULL)
+    if(atual == NULL)//Se não encontrou retona 0
         return 0;
 
     if(ant == NULL){
-        l->header = atual->prox;
+        l->header = atual->prox;//Caso encontrou e é o primeiro elemento da lista
     }else{
-        ant->prox = atual->prox;
+        ant->prox = atual->prox;//Caso encontrou e é um elemento no meio da lista 
     }
 
-    free(atual);
-    l->tam--;
-    return 1;
+    free(atual);//Libera o nó encontrada
+    l->tam--;//Diminui tamanho da lista
+    return 1;//Retorna 1 para remoção bem sucedida
 }
 
 int lista_remove_por_chave_valor(Lista* l, const char* chave, int codigo) {
@@ -117,22 +117,22 @@ int lista_busca_todas(Lista* l, const char* chave) {
 }
 
 void lista_imprime(Lista* l){
-    if(!l)
+    if(!l)//Verifica se o ponteiro da lista é valido
         return;
     
     No* atual = l->header;
-    while(atual != NULL){
+    while(atual != NULL){//Percorre a lista enquanto o nó não é null e os imprime
         printf("A chave %s tem o codigo %d\n", atual->info.chave, atual->info.codigo);
         atual = atual->prox;
     }
 
 }
 
-int lista_vazia(Lista *l){
+int lista_vazia(Lista *l){//Retorna 1 caso lista esteja vazia
     return l->tam == 0;
 }
 
-void no_libera(No* header){
+void no_libera(No* header){//Libera recursivamente cada nó da lista encadeada
     if(header){
         no_libera(header->prox);
         free(header);
@@ -140,9 +140,9 @@ void no_libera(No* header){
 }
 
 void lista_libera(Lista* l){
-    if(l == NULL)
+    if(l == NULL)//Verifica se o ponteiro para lista é valido
         return;
 
-    no_libera(l->header);
-    free(l);
+    no_libera(l->header);//Chama a função para liberar os nós
+    free(l);//libera a estrutura lista
 }
