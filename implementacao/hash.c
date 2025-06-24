@@ -45,15 +45,14 @@ bool inserir(TabelaHash* tabela, const char* chave, int valor){
         l = tabela->tabela_hash[index];
     }
     
-    Viagem *novo = (Viagem*) malloc(sizeof(Viagem));//Cria um novo elemento viagem auxiliar que deve ser inserido na lista
-    strcpy(novo->chave, chave);
-    novo->codigo = valor;
+    Viagem novo;//Cria um novo elemento viagem auxiliar que deve ser inserido na lista
+    strcpy(novo.chave, chave);
+    novo.codigo = valor;
     
-    if(lista_insere(l, *novo)){//Insere na lista uma cópia do que o ponteiro novo aponta, não o ponteiro em si
-        free(novo);//Damos free no ponteiro auxiliar de viagem
+    if(lista_insere(l, novo)){//Insere na lista uma cópia do que o ponteiro novo aponta, não o ponteiro em si
         return true;
     }else{ 
-        free(novo);//Damos free no ponteiro auxiliar de viagem
+        
         return false;
     }
 }
