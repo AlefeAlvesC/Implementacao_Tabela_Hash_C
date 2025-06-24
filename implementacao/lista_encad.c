@@ -51,6 +51,35 @@ int lista_remove(Lista *l, const char* chave){
     return 1;
 }
 
+int lista_remove_por_chave_valor(Lista* l, const char* chave, int codigo) {
+    if (!l || l->tam == 0)
+        return 0;
+
+    No *atual = l->header;
+    No *ant = NULL;
+
+    //percorre a lista em busca de um nó com chave e código correspondentes
+    while (atual) {
+        if (strcmp(atual->info.chave, chave) == 0 && atual->info.codigo == codigo)
+            break; // achou o nó
+        ant = atual;
+        atual = atual->prox;
+    }
+
+    if (!atual) // nao achou o no 
+        return 0;
+
+    //retira o no encontrado da lista
+    if (!ant)
+        l->header = atual->prox;
+    else
+        ant->prox = atual->prox;
+
+    free(atual); //libera memória
+    l->tam--;
+    return 1; //sucesso
+}
+
 //Função para busca recursiva somente com os nós
 int *lista_busca_no(No* header, const char* chave){
     if(header){//Verifica se o nó não esta vazio

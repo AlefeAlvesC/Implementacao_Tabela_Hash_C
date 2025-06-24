@@ -87,14 +87,27 @@ bool remover(TabelaHash* tabela, const char* chave){
         return false;
 }
 
+bool remover_por_chave_valor(TabelaHash* tabela, const char* chave, int codigo) { //retira um item especifico da tabela hash com base na chave e no codigo
+    if (!tabela)
+        return false;
+
+    int index = hash(chave); //pega o indice da chave na tabela
+    if (tabela->tabela_hash[index] == NULL)
+        return false;
+
+    //chama a funcao para remover especificamente da lista
+    return lista_remove_por_chave_valor(tabela->tabela_hash[index], chave, codigo);
+}
+
 void imprimir_tabela(TabelaHash* tabela){
     if(!tabela)
         return;
     printf("--- Imprimindo TABELA HASH ---\n");
     for(int i = 0; i < TAMANHO_HASH; i++){
-        if(tabela->tabela_hash[i] != NULL){
+        Lista* l = tabela->tabela_hash[i];
+        if(l != NULL && !lista_vazia(l)){ //faz a verificacao se a lista existe e não está vazia
             printf("\nImprimindo itens na posicao %d da tabela:\n", i);
-            lista_imprime(tabela->tabela_hash[i]);
+            lista_imprime(l);
         }
     }
 }

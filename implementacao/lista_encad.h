@@ -35,6 +35,9 @@ int lista_insere(Lista *l, Viagem valor);
 //Essa função recebe como parametro o ponteiro para um lista e o elemento que deve ser removido da lista
 int lista_remove(Lista* l, const char* chave);
 
+//Remove da lista encadeada o primeiro elemento que possui a chave e codigo correspondente
+int lista_remove_por_chave_valor(Lista* l, const char* chave, int codigo);
+
 //Função para buscar um elemento na lista
 //Essa função recebe o ponteiro da lista e chave que deve ser buscada, retornando assim o valor correspondente da chave
 int *lista_busca(Lista* l, const char* chave);

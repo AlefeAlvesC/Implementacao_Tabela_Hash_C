@@ -35,6 +35,9 @@ int buscar_todas(TabelaHash* tabela, const char* chave);
 //Essa função recebe o ponteiro para tabela hash, a chave e valor do item a ser inserido e retorna TRUE ou FALSE para o resultado da remoção
 bool remover(TabelaHash* tabela, const char* chave);
 
+//retira da tabela hash o elemento que possuir a chave e codigo colocados na funcao
+bool remover_por_chave_valor(TabelaHash* tabela, const char* chave, int codigo);
+
 //Função para imprimir a tabela hash
 void imprimir_tabela(TabelaHash* tabela);
 
