@@ -40,28 +40,28 @@ int main(){
         scanf("%d", &opcao);
 
         switch (opcao){
-        case 0:
+        case 0://Finalizar programa
             liberar_tabela(tabela);
             printf("Finalizando programa.");
             return 0;
-        case 1:
-            if(tabela)
+        case 1://Criar nova tabela
+            if(tabela)//Libera a tabela, caso já exista
                 liberar_tabela(tabela);
-            tabela = criar_tabela_hash();
+            tabela = criar_tabela_hash();//Aloca memoria a uma nova
             printf("A tabela hash foi criada com sucesso.\n");
             
             limpar_buffer();
             break;
 
-        case 2:
-            if (tabela == NULL) {
+        case 2://Inserir um novo elemento na tabela
+            if (tabela == NULL) {//Verifica se já foi criada uma tabela
                 printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
                 limpar_buffer();
                 break;
             }
             printf("Digite uma chave de até 6 caracteres para a viagem:\n");
             
-            if (scanf("%s", chave) != 1) {
+            if (scanf("%s", chave) != 1) {//Tratamento caso ocorra erro na leitura
                 printf("Erro na leitura da chave.\n");
                 limpar_buffer();
                 break;
@@ -75,13 +75,13 @@ int main(){
             }
 
             printf("Digite o código da viagem:\n");
-            if (scanf("%d", &cod) != 1) {
+            if (scanf("%d", &cod) != 1) {//Tratamento caso ocorra erro no leitura do codigo
                 printf("Entrada inválida para o código.\n");
                 limpar_buffer();
                 break;
             }   
 
-            if(inserir(tabela, chave, cod))
+            if(inserir(tabela, chave, cod))//Verifica se a inserção ocorreu com sucesso
                 printf("Inserção feita com sucesso.\n");
             else
                 printf("Erro ao inserir, tente novamente.\n");
@@ -89,36 +89,36 @@ int main(){
             limpar_buffer();
 
             break;
-        case 3:
-            if (tabela == NULL) {
+        case 3://Inserir elementos por um arquivo
+            if (tabela == NULL) {//Verifica se já existe tabela criada
                 printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
                 limpar_buffer();
                 break;
             }
             printf("Digite o nome do arquivo que contem os elementos:\n");
-            if (scanf("%s", nome_arquivo) != 1) {
+            if (scanf("%s", nome_arquivo) != 1) {//Tratamento caso ocorra erro na leitura do nome do arquivo
                 printf("Erro ao ler o nome do arquivo.\n");
                 limpar_buffer();
                 break;
             }
 
             printf("Digite a quantidades de linhas desse arquivo.\n");
-            if (scanf("%d", &linhas) != 1 || linhas <= 0) {
+            if (scanf("%d", &linhas) != 1 || linhas <= 0) {//Tratamento caso ocorra erro na leitura do numero de linhas
                 printf("Número de linhas inválido.\n");
                 limpar_buffer();
                 break;
             }
 
             fp = fopen(nome_arquivo, "r");
-            if(!fp){
+            if(!fp){//Tratamento caso ocorra erro quanto a existencia do arquivo
                 printf("Erro ao abrir o arquivo '%s'. Verifique se o nome está correto e se o arquivo existe.\n", nome_arquivo);
                 limpar_buffer();
                 break;
             }
             
             int sucesso = 1;
-            for(int i = 0; i < linhas; i++){//Forma de percorrer o arquivo, nesse caso, percorro as 42 linhas dele
-                if (fscanf(fp, "%s %d", chave, &cod) != 2) { //Realizo a leitura da chave e do codigo
+            for(int i = 0; i < linhas; i++){//Forma de percorrer o arquivo, nesse caso, percorre a qtde de linhas informadas
+                if (fscanf(fp, "%s %d", chave, &cod) != 2) { //Realizo a leitura da chave e do codigo e faz o tratamento caso exista um formato de entrada invalido  no arquivo
                     printf("Erro na leitura da linha %d do arquivo. Verificar se o formato esta certo. \n", i + 1);
                     sucesso = 0;
                     break;
@@ -141,8 +141,8 @@ int main(){
 
             limpar_buffer();
             break;
-        case 4:
-            if (tabela == NULL) {
+        case 4://Remove um elemento da tabela  hash
+            if (tabela == NULL) {//Verifica se já existe uma tabela hash
                 printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
                 limpar_buffer();
                 break;
@@ -168,8 +168,8 @@ int main(){
             limpar_buffer();
             break;
         
-        case 5:
-            if (tabela == NULL) {
+        case 5://Apaga todos os elementos da tabela hash
+            if (tabela == NULL) {//Verifica se já existe uma tabela hash
                 printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
                 limpar_buffer();
                 break;
@@ -181,7 +181,7 @@ int main(){
             limpar_buffer();
             break;
 
-        case 6:
+        case 6://Imprime todas as ocorrencias de uma chave
             if (tabela == NULL) {
                 printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
                 limpar_buffer();
@@ -208,7 +208,7 @@ int main(){
             
             limpar_buffer();    
             break;
-        case 7:
+        case 7://Imprime todos os elementos presentes na tabela hash
             if (tabela == NULL) {
                 printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
                 limpar_buffer();
@@ -217,7 +217,7 @@ int main(){
             imprimir_tabela(tabela);
             limpar_buffer();
             break;
-        case 8:
+        case 8://Busca e mostra o total de ocorrencias de uma chave
             if (tabela == NULL) {
                 printf("Tabela não criada. Por favor, crie a tabela primeiro (opção 1).\n");
                 limpar_buffer();
